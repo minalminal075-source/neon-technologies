@@ -4,181 +4,312 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>NEON Technologies | Second HQ</title>
+<title>NEON TECHNOLOGIES | Beyond Limits</title>
+<meta name="description" content="Explore NEON Technologies, our team, software and vision for the future.">
 <style>
 *{margin:0;padding:0;box-sizing:border-box}
 html{scroll-behavior:smooth}
 body{
-  font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
-  background:#fff;color:#171717;
+  background:#05070c;
+  color:#f5f7ff;
+  font-family:Arial,Helvetica,sans-serif;
+  overflow-x:hidden;
 }
+:root{--blue:#55c8ff;--muted:#a4afc4}
+a{color:inherit;text-decoration:none}
 nav{
-  height:68px;display:flex;align-items:center;
-  justify-content:space-between;padding:0 8%;
-  border-bottom:1px solid #eee;
-  position:sticky;top:0;background:#ffffffed;
-  backdrop-filter:blur(15px);z-index:10;
+  height:76px;padding:0 8%;
+  display:flex;align-items:center;justify-content:space-between;
+  position:sticky;top:0;z-index:100;
+  background:rgba(5,7,12,.88);
+  backdrop-filter:blur(18px);
+  border-bottom:1px solid #ffffff12;
 }
-.logo{font-size:23px;font-weight:750;letter-spacing:-1px}
-nav a{color:#555;text-decoration:none;font-size:13px;margin-left:22px}
+.logo{font-size:25px;font-weight:900;letter-spacing:3px}
+.logo span{color:var(--blue)}
+.navlinks{display:flex;gap:28px}
+.navlinks a{font-size:13px;color:#b6c0d0;transition:.3s}
+.navlinks a:hover{color:var(--blue)}
 .hero{
-  min-height:650px;display:flex;flex-direction:column;
-  justify-content:center;align-items:center;text-align:center;
-  padding:80px 20px;
-  background:linear-gradient(180deg,#fff,#f5f7fa);
+  min-height:740px;
+  display:flex;align-items:center;justify-content:center;
+  text-align:center;padding:100px 20px;
+  position:relative;overflow:hidden;
+  background:
+  radial-gradient(ellipse at 50% 40%,#073b6655,transparent 55%),
+  radial-gradient(ellipse at 10% 90%,#10245a33,transparent 40%);
 }
-.tag{color:#777;font-size:13px;letter-spacing:3px}
+.hero:before{
+  content:"";position:absolute;width:550px;height:550px;
+  border:1px solid #50c9ff18;border-radius:50%;
+  box-shadow:0 0 100px #008cff18,inset 0 0 100px #008cff12;
+  animation:rotate 25s linear infinite;
+}
+.hero:after{
+  content:"";position:absolute;width:420px;height:420px;
+  border:1px solid #50c9ff25;border-radius:50%;
+  animation:rotate 18s linear infinite reverse;
+}
+@keyframes rotate{to{transform:rotate(360deg)}}
+.hero-content{position:relative;z-index:2}
+.eyebrow{
+  color:var(--blue);font-size:12px;letter-spacing:5px;
+  font-weight:bold;
+}
 .hero h1{
-  font-size:clamp(55px,10vw,105px);
-  letter-spacing:-7px;margin:25px 0 15px;
+  font-size:clamp(65px,12vw,135px);
+  letter-spacing:-8px;line-height:1.05;
+  margin:28px 0;
+  text-shadow:0 0 45px #16aaff55;
 }
-.hero p{font-size:20px;color:#777;max-width:570px;line-height:1.6}
+.hero h1 span{
+  color:transparent;
+  -webkit-text-stroke:1.5px #68d3ff;
+}
+.hero p{
+  color:#b1bfd1;font-size:18px;
+  max-width:620px;margin:auto;line-height:1.8;
+}
+.buttons{display:flex;justify-content:center;gap:15px;flex-wrap:wrap}
 .btn{
-  display:inline-block;margin-top:32px;padding:15px 28px;
-  background:#111;color:white;border-radius:30px;
-  text-decoration:none;font-size:14px;
-  transition:.25s;
+  display:inline-block;padding:16px 28px;
+  border-radius:7px;font-size:13px;font-weight:bold;
+  letter-spacing:1px;transition:.3s;
+  margin-top:35px;
 }
-.btn:hover{background:#444;transform:translateY(-3px)}
-section{padding:100px 9%;text-align:center}
-.heading{font-size:clamp(35px,5vw,55px);letter-spacing:-2px}
-.sub{color:#777;margin-top:15px;font-size:17px;line-height:1.7}
-.cards{
-  display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));
+.primary{
+  color:#00111c;background:#65ceff;
+  box-shadow:0 0 28px #32baff44;
+}
+.primary:hover{background:#fff;transform:translateY(-4px)}
+.secondary{border:1px solid #53657c;color:white}
+.secondary:hover{border-color:var(--blue);color:var(--blue)}
+.section{padding:110px 9%;text-align:center}
+.kicker{color:var(--blue);font-size:11px;letter-spacing:5px;font-weight:bold}
+.heading{
+  font-size:clamp(36px,6vw,65px);
+  letter-spacing:-3px;margin-top:20px;
+}
+.description{
+  color:var(--muted);max-width:700px;
+  margin:20px auto;line-height:1.9;font-size:16px;
+}
+.grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(230px,1fr));
   gap:22px;margin-top:55px;text-align:left;
 }
 .card{
-  background:#f5f5f7;border-radius:24px;padding:35px;
-  min-height:220px;transition:.3s;
+  padding:35px 30px;min-height:260px;
+  border:1px solid #ffffff15;
+  background:linear-gradient(145deg,#141c2b,#090d16);
+  border-radius:15px;transition:.35s;
+  position:relative;overflow:hidden;
 }
-.card:hover{transform:translateY(-6px)}
-.card .symbol{font-size:34px;margin-bottom:25px}
-.card h3{font-size:24px;margin-bottom:12px}
-.card p{color:#777;line-height:1.6;font-size:14px}
-.dark{
-  background:#101114;color:white;border-radius:30px;
-  margin:20px 5%;padding:90px 8%;
+.card:hover{
+  transform:translateY(-9px);
+  border-color:#42bfff88;
+  box-shadow:0 15px 45px #008cff19;
 }
-.dark .sub{color:#aaa}
-.team{background:#f5f5f7}
-footer{padding:65px 20px;text-align:center;border-top:1px solid #eee}
-footer p{color:#888;font-size:13px;margin-top:12px}
-footer a{color:#333}
-@media(max-width:600px){
- nav{padding:0 5%}
- nav a{margin-left:10px;font-size:11px}
+.symbol{
+  font-size:37px;color:var(--blue);
+  margin-bottom:35px;
+}
+.card h3{font-size:22px;margin-bottom:15px}
+.card p{color:#9eabc0;line-height:1.8;font-size:14px}
+.card small{
+  display:block;color:var(--blue);
+  margin-top:22px;letter-spacing:2px;font-size:10px;
+}
+.feature{
+  margin:20px 5%;padding:100px 8%;
+  border:1px solid #258acb44;border-radius:22px;
+  background:
+  radial-gradient(ellipse at 90% 20%,#064d8355,transparent 50%),
+  linear-gradient(120deg,#0e1726,#060b13);
+}
+.feature h2{font-size:clamp(35px,6vw,65px);letter-spacing:-3px}
+.feature p{color:#abb8cb;max-width:650px;line-height:1.9;margin-top:20px}
+.team-card{text-align:center;min-height:190px}
+.team-card .symbol{margin-bottom:22px}
+.team-card h3{font-size:19px}
+.team-card p{margin-top:8px}
+.cta{
+  padding:110px 20px;text-align:center;
+  background:radial-gradient(ellipse at center,#12365a55,transparent 70%);
+}
+.cta h2{font-size:clamp(40px,7vw,80px);letter-spacing:-4px}
+.cta p{color:#aab8cc;margin-top:20px}
+footer{
+  border-top:1px solid #ffffff15;
+  padding:55px 8%;text-align:center;
+  color:#8995a9;
+}
+footer .logo{color:white}
+footer p{font-size:12px;margin-top:16px;line-height:1.8}
+footer a{color:var(--blue)}
+@media(max-width:650px){
+ nav{padding:0 5%;height:65px}
+ .logo{font-size:20px}
+ .navlinks{gap:12px}
+ .navlinks a{font-size:10px}
+ .hero{min-height:650px}
  .hero h1{letter-spacing:-4px}
- section{padding:75px 6%}
- .dark{margin:10px 3%;padding:65px 7%}
+ .section{padding:80px 6%}
+ .feature{margin:10px 3%;padding:70px 7%}
 }
 </style>
 </head>
 <body>
 
 <nav>
-  <div class="logo">NEON.</div>
-  <div>
-    <a href="#about">About</a>
-    <a href="#products">Products</a>
-    <a href="#team">Team</a>
+  <div class="logo">NEON<span>.</span></div>
+  <div class="navlinks">
+    <a href="#about">ABOUT</a>
+    <a href="#products">PRODUCTS</a>
+    <a href="#team">TEAM</a>
   </div>
 </nav>
 
 <header class="hero">
-  <div class="tag">NEON TECHNOLOGIES · SECOND HQ</div>
-  <h1>Think beyond.</h1>
-  <p>We build technology, explore possibilities
-  and turn ambitious ideas into reality.</p>
-  <a class="btn" href="#about">Discover NEON ↗</a>
+  <div class="hero-content">
+    <div class="eyebrow">WELCOME TO THE SECOND HEADQUARTERS</div>
+    <h1>BUILD <span>BEYOND.</span></h1>
+    <p>
+      We don't just imagine the future.
+      We explore, experiment and build technology
+      that takes ideas beyond limits.
+    </p>
+    <div class="buttons">
+      <a class="btn primary" href="#products">EXPLORE NEON ↗</a>
+      <a class="btn secondary" href="#about">OUR VISION</a>
+    </div>
+  </div>
 </header>
 
-<section id="about">
-  <h2 class="heading">Technology with a vision.</h2>
-  <p class="sub">
+<section class="section" id="about">
+  <div class="kicker">WHO WE ARE</div>
+  <h2 class="heading">Ideas become innovation.</h2>
+  <p class="description">
     NEON Technologies is an emerging technology initiative
-    focused on software, innovation and creating useful
-    digital experiences.
+    driven by curiosity, creativity and ambition.
+    Our mission is to learn, create and build useful digital experiences.
   </p>
-  <div class="cards">
+
+  <div class="grid">
     <div class="card">
       <div class="symbol">✦</div>
-      <h3>Innovation</h3>
-      <p>Exploring creative ideas and building new digital solutions.</p>
+      <h3>Innovation First</h3>
+      <p>Exploring new ideas and transforming imagination into real projects.</p>
+      <small>01 / INNOVATION</small>
     </div>
     <div class="card">
       <div class="symbol">⌘</div>
-      <h3>Technology</h3>
-      <p>Developing software experiences with purpose and simplicity.</p>
+      <h3>Technology Driven</h3>
+      <p>Developing software and digital tools with purpose and creativity.</p>
+      <small>02 / TECHNOLOGY</small>
     </div>
     <div class="card">
       <div class="symbol">↗</div>
-      <h3>Ambition</h3>
-      <p>Learning, improving and building beyond expectations.</p>
+      <h3>Future Focused</h3>
+      <p>Learning from every challenge and improving with every creation.</p>
+      <small>03 / PROGRESS</small>
     </div>
   </div>
 </section>
 
-<section class="dark" id="products">
-  <div class="tag">THE NEON ECOSYSTEM</div>
-  <h2 class="heading" style="margin-top:20px">Built to explore.</h2>
-  <p class="sub">Discover projects developed under NEON Technologies.</p>
-  <div class="cards">
+<div class="feature">
+  <div class="kicker">OUR PHILOSOPHY</div>
+  <h2>Think bigger.<br>Build smarter.</h2>
+  <p>
+    Every great creation starts with an idea.
+    We believe in discipline, continuous learning,
+    creative problem-solving and the courage to experiment.
+  </p>
+</div>
+
+<section class="section" id="products">
+  <div class="kicker">THE NEON ECOSYSTEM</div>
+  <h2 class="heading">Meet our creations.</h2>
+  <p class="description">
+    A growing collection of software projects
+    created under the NEON Technologies vision.
+  </p>
+
+  <div class="grid">
     <div class="card">
       <div class="symbol">◈</div>
       <h3>NEON TRADELAB</h3>
-      <p>A virtual paper-trading learning platform using simulated money.</p>
+      <p>A virtual trading simulator designed to help users explore markets using simulated money.</p>
+      <small>FINANCIAL LEARNING</small>
     </div>
     <div class="card">
       <div class="symbol">◎</div>
       <h3>NEON JARVIS</h3>
-      <p>A desktop assistant project designed to make everyday computer tasks easier.</p>
+      <p>A desktop assistant project focused on useful everyday computer interactions.</p>
+      <small>DESKTOP SOFTWARE</small>
     </div>
     <div class="card">
       <div class="symbol">✧</div>
-      <h3>Future Projects</h3>
-      <p>More experiments, applications and digital products are on the way.</p>
+      <h3>WHAT'S NEXT?</h3>
+      <p>New experiments, creative software and ambitious projects are in development.</p>
+      <small>COMING PROJECTS</small>
     </div>
   </div>
 </section>
 
-<section class="team" id="team">
-  <div class="tag">THE PEOPLE BEHIND NEON</div>
-  <h2 class="heading" style="margin-top:20px">Meet the team.</h2>
-  <p class="sub">A team working together to build something bigger.</p>
-  <div class="cards">
-    <div class="card">
+<section class="section team" id="team">
+  <div class="kicker">THE PEOPLE BEHIND THE VISION</div>
+  <h2 class="heading">One team. One vision.</h2>
+  <p class="description">
+    Different minds. Shared ambition.
+    Working together to create something meaningful.
+  </p>
+  <div class="grid">
+    <div class="card team-card">
+      <div class="symbol">◆</div>
       <h3>Aayushyamaan Dewal</h3>
       <p>Founder</p>
     </div>
-    <div class="card">
+    <div class="card team-card">
+      <div class="symbol">◇</div>
       <h3>Hems Patel</h3>
       <p>CEO</p>
     </div>
-    <div class="card">
+    <div class="card team-card">
+      <div class="symbol">✦</div>
       <h3>Dhyan Vaghela</h3>
       <p>Team Member</p>
     </div>
-    <div class="card">
+    <div class="card team-card">
+      <div class="symbol">✦</div>
       <h3>Rudra Patel</h3>
       <p>Team Member</p>
     </div>
-    <div class="card">
+    <div class="card team-card">
+      <div class="symbol">✦</div>
       <h3>Aarya Patel</h3>
       <p>Team Member</p>
     </div>
   </div>
 </section>
 
-<section>
-  <h2 class="heading">The future is unwritten.</h2>
-  <p class="sub">And we're here to build it.</p>
-  <a class="btn" href="https://sites.google.com/view/neon-technologies-hq/home">
-    Visit First Headquarters ↗
-  </a>
+<section class="cta">
+  <div class="kicker">THE JOURNEY CONTINUES</div>
+  <h2>THE FUTURE<br>IS OURS TO BUILD.</h2>
+  <p>NEON Technologies. BUILD BEYOND.</p>
+  <div class="buttons">
+    <a class="btn primary"
+       href="https://sites.google.com/view/neon-technologies-hq/home">
+       VISIT FIRST HQ ↗
+    </a>
+    <a class="btn secondary" href="#about">EXPLORE AGAIN ↑</a>
+  </div>
 </section>
 
 <footer>
-  <div class="logo">NEON.</div>
+  <div class="logo">NEON<span>.</span></div>
+  <p>SECOND HEADQUARTERS · NEON TECHNOLOGIES</p>
   <p>BUILD BEYOND.</p>
   <p>© 2026 NEON Technologies. All rights reserved.</p>
   <p><a href="https://sites.google.com/view/neon-technologies-hq/home">First Headquarters</a></p>
