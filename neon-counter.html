@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>NEON Technologies | Live Visitor Analytics</title>
+<meta name="theme-color" content="#070b16">
+<style>
+:root{color-scheme:dark;--bg:#070b16;--panel:#0d1528;--line:#1d3150;--cyan:#00e5ff;--blue:#5577ff;--muted:#91a3bd;--green:#48f0a5}
+*{box-sizing:border-box}body{margin:0;min-height:100vh;background:radial-gradient(ellipse at 15% 0%,#102747 0,transparent 42%),radial-gradient(ellipse at 90% 90%,#111b42 0,transparent 38%),var(--bg);font-family:Inter,Segoe UI,Arial,sans-serif;color:#eef6ff;display:grid;place-items:center;padding:24px}
+.wrap{width:min(960px,100%)}header{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:24px}.brand{font-size:13px;letter-spacing:3px;color:var(--cyan);font-weight:800}.status{font-size:11px;letter-spacing:1.5px;color:var(--green);border:1px solid #23664e;background:#0c241d;padding:8px 12px;border-radius:99px}.dot{display:inline-block;width:7px;height:7px;background:var(--green);border-radius:50%;margin-right:7px;box-shadow:0 0 12px var(--green)}
+h1{font-size:clamp(28px,5vw,48px);margin:0 0 8px;letter-spacing:-1.5px} .sub{color:var(--muted);margin:0 0 28px;line-height:1.6}.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px}.card{background:linear-gradient(145deg,#111d34,#0b1222);border:1px solid var(--line);border-radius:20px;padding:24px;box-shadow:0 18px 50px #0005;min-height:180px}.label{font-size:12px;letter-spacing:1.8px;color:var(--muted);font-weight:700}.number{font-size:clamp(48px,8vw,76px);font-weight:800;letter-spacing:-3px;margin:18px 0 4px;background:linear-gradient(90deg,#fff,var(--cyan));-webkit-background-clip:text;background-clip:text;color:transparent}.hint{font-size:12px;color:var(--muted)}.icon{font-size:22px;margin-bottom:16px}.wide{margin-top:16px;background:#0b1425;border:1px solid var(--line);border-radius:16px;padding:16px 20px;color:var(--muted);font-size:13px;line-height:1.6}.foot{display:flex;justify-content:space-between;gap:12px;margin-top:18px;color:#71839e;font-size:11px;letter-spacing:1px}.error{color:#ffb4b4}.hidden{display:none}
+@media(max-width:560px){.grid{grid-template-columns:1fr}.card{min-height:155px}header{align-items:flex-start;flex-direction:column}.foot{flex-direction:column}}
+</style>
+</head>
+<body>
+<main class="wrap">
+<header><div class="brand">NEON TECHNOLOGIES</div><div class="status" id="status"><span class="dot"></span>CONNECTING</div></header>
+<h1>LIVE VISITOR ANALYTICS</h1>
+<p class="sub">A real-time view of visitors on the NEON counter page.</p>
+<section class="grid">
+  <article class="card"><div class="icon">◉</div><div class="label">LIVE VISITORS</div><div class="number" id="live">—</div><div class="hint">Visitors currently on this counter page</div></article>
+  <article class="card"><div class="icon">↗</div><div class="label">TOTAL VISITS</div><div class="number" id="total">—</div><div class="hint">All-time page visits recorded</div></article>
+</section>
+<div class="wide" id="message">Connecting to the NEON live counter…</div>
+<footer class="foot"><span>BUILD BEYOND. THINK BEYOND.</span><span>NEON ANALYTICS • BETA</span></footer>
+</main>
+
+<!-- Firebase's public web SDK. No software installation is required for visitors. -->
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-auth-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-database-compat.js"></script>
+<script>
+/*
+  SETUP: Replace the placeholder values below with your Firebase web app config.
+  Firebase Console > Project settings > General > Your apps > SDK setup.
+*/
+// For Firebase JS SDK v7.20.0 and later, measurementId is optional
+const firebaseConfig = {
+  apiKey: "AIzaSyAdWNF13Kid5JFbmYembMCDOHqnVwyiZE4",
+  authDomain: "neon-live-counter.firebaseapp.com",
+  databaseURL: "https://neon-live-counter-default-rtdb.asia-southeast1.firebasedatabase.app",
+  projectId: "neon-live-counter",
+  storageBucket: "neon-live-counter.firebasestorage.app",
+  messagingSenderId: "1030963418496",
+  appId: "1:1030963418496:web:ea774a437d82e17f09dd65",
+  measurementId: "G-GYT5KYCVD5"
+};
+
+const liveEl = document.getElementById("live");
+const totalEl = document.getElementById("total");
+const statusEl = document.getElementById("status");
+const messageEl = document.getElementById("message");
+
+function showError(message) {
+  statusEl.textContent = "SETUP NEEDED";
+  statusEl.style.color = "#ffb4b4";
+  statusEl.style.borderColor = "#743b48";
+  messageEl.className = "wide error";
+  messageEl.textContent = message;
+}
+
+async function startCounter() {
+  if (firebaseConfig.apiKey.startsWith("PASTE_") ||
+      firebaseConfig.databaseURL.includes("PASTE_") ||
+      firebaseConfig.projectId.startsWith("PASTE_")) {
+    showError("Setup required: add your Firebase web app configuration in index.html, then publish the page again. Follow README.txt.");
+    return;
+  }
+
+  try {
+    firebase.initializeApp(firebaseConfig);
+    await firebase.auth().signInAnonymously();
+    const db = firebase.database();
+    const activeRef = db.ref("neonCounter/active");
+    const totalRef = db.ref("neonCounter/totalVisits");
+    const myVisit = activeRef.push();
+
+    // Remove this visitor's presence automatically when the connection closes.
+    await myVisit.onDisconnect().remove();
+    await myVisit.set({ joinedAt: firebase.database.ServerValue.TIMESTAMP });
+
+    // Count one visit for this page load.
+    await totalRef.transaction(current => (Number(current) || 0) + 1);
+
+    activeRef.on("value", snapshot => {
+      liveEl.textContent = snapshot.numChildren().toLocaleString();
+    });
+    totalRef.on("value", snapshot => {
+      totalEl.textContent = (Number(snapshot.val()) || 0).toLocaleString();
+    });
+
+    statusEl.innerHTML = '<span class="dot"></span>LIVE';
+    messageEl.textContent = "Connected. Visitor counts update automatically while this page is open.";
+  } catch (error) {
+    console.error(error);
+    showError("Could not connect. Check that Anonymous Authentication, Realtime Database, and the database rules are configured as described in README.txt.");
+  }
+}
+startCounter();
+</script>
+</body>
+</html>
